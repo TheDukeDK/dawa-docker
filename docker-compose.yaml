@@ -12,7 +12,7 @@ services:
       - POSTGRES_USER=$POSTGRES_DB_USER
       - POSTGRES_PASSWORD=$POSTGRES_DB_PASSWORD
     volumes:
-      - dawadk_db_volume:/var/lib/postgresql/data
+      - dawadk_db_volume:/var/lib/postgresql
     ulimits:
       nproc: 65535
       nofile:

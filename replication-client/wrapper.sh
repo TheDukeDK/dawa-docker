@@ -29,14 +29,12 @@ main() {
 
 execute_replication() {
   echo "INFO: Starting replication: `date`"
-  for file in `find config_*.json`
-    do
-      REPLICATION_CMD="dawa-replication-client replicate --database=${DATABASE_URL} --replication-config ${file}"
-      ${REPLICATION_CMD}
-      if [[ $? -ne 0 ]]; then
-        echo "WARNING: Replication of config ${file} did not succeed!"
-      fi
-  done
+  CONFIG=$(find config.json)
+  REPLICATION_CMD="dawa-replication-client replicate --database=${DATABASE_URL} --replication-config ${CONFIG}"
+  ${REPLICATION_CMD}
+  if [[ $? -ne 0 ]]; then
+    echo "WARNING: Replication of config ${file} did not succeed!"
+  fi
   echo "INFO: Finished replication: `date`"
 }
 
