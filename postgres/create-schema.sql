@@ -1,7 +1,4 @@
 CREATE SCHEMA IF NOT EXISTS dawa_replication;
-DROP TABLE IF EXISTS dawa_replication.transactions CASCADE;
-DROP TABLE IF EXISTS dawa_replication.source_transactions CASCADE;
-DROP TYPE IF EXISTS dawa_replication.operation_type CASCADE;
 CREATE TABLE dawa_replication.transactions(
   txid integer PRIMARY KEY,
   ts timestamptz);
@@ -12,8 +9,6 @@ CREATE TABLE dawa_replication.source_transactions(
   type text NOT NULL,
   PRIMARY KEY (source_txid, entity));
 CREATE TYPE dawa_replication.operation_type AS ENUM ('insert', 'update', 'delete');
-DROP TABLE IF EXISTS adgangsadresse CASCADE;
-DROP TABLE IF EXISTS adgangsadresse_changes CASCADE;
 create table adgangsadresse(
 id uuid,
 status integer,
@@ -48,8 +43,8 @@ PRIMARY KEY(id)
 CREATE TABLE adgangsadresse_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, adgangsadresse.* FROM adgangsadresse WHERE false);
 CREATE INDEX ON adgangsadresse_changes(txid);
 CREATE INDEX ON adgangsadresse_changes(id);
-DROP TABLE IF EXISTS adresse CASCADE;
-DROP TABLE IF EXISTS adresse_changes CASCADE;
+
+
 create table adresse(
 id uuid,
 status integer,
@@ -67,8 +62,8 @@ PRIMARY KEY(id)
 CREATE TABLE adresse_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, adresse.* FROM adresse WHERE false);
 CREATE INDEX ON adresse_changes(txid);
 CREATE INDEX ON adresse_changes(id);
-DROP TABLE IF EXISTS afstemningsomraade CASCADE;
-DROP TABLE IF EXISTS afstemningsomraade_changes CASCADE;
+
+
 create table afstemningsomraade(
 ændret text,
 geo_ændret text,
@@ -88,8 +83,6 @@ PRIMARY KEY(kommunekode, nummer)
 CREATE TABLE afstemningsomraade_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, afstemningsomraade.* FROM afstemningsomraade WHERE false);
 CREATE INDEX ON afstemningsomraade_changes(txid);
 CREATE INDEX ON afstemningsomraade_changes(kommunekode,nummer);
-DROP TABLE IF EXISTS afstemningsomraadetilknytning CASCADE;
-DROP TABLE IF EXISTS afstemningsomraadetilknytning_changes CASCADE;
 create table afstemningsomraadetilknytning(
 adgangsadresseid uuid,
 kommunekode text,
@@ -99,8 +92,6 @@ PRIMARY KEY(adgangsadresseid, kommunekode, afstemningsområdenummer)
 CREATE TABLE afstemningsomraadetilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, afstemningsomraadetilknytning.* FROM afstemningsomraadetilknytning WHERE false);
 CREATE INDEX ON afstemningsomraadetilknytning_changes(txid);
 CREATE INDEX ON afstemningsomraadetilknytning_changes(adgangsadresseid,kommunekode,afstemningsområdenummer);
-DROP TABLE IF EXISTS brofasthed CASCADE;
-DROP TABLE IF EXISTS brofasthed_changes CASCADE;
 create table brofasthed(
 stedid uuid,
 brofast boolean,
@@ -109,8 +100,6 @@ PRIMARY KEY(stedid)
 CREATE TABLE brofasthed_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, brofasthed.* FROM brofasthed WHERE false);
 CREATE INDEX ON brofasthed_changes(txid);
 CREATE INDEX ON brofasthed_changes(stedid);
-DROP TABLE IF EXISTS bygning CASCADE;
-DROP TABLE IF EXISTS bygning_changes CASCADE;
 create table bygning(
 id text,
 bygningstype text,
@@ -125,8 +114,6 @@ PRIMARY KEY(id)
 CREATE TABLE bygning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, bygning.* FROM bygning WHERE false);
 CREATE INDEX ON bygning_changes(txid);
 CREATE INDEX ON bygning_changes(id);
-DROP TABLE IF EXISTS bygningtilknytning CASCADE;
-DROP TABLE IF EXISTS bygningtilknytning_changes CASCADE;
 create table bygningtilknytning(
 bygningid integer,
 adgangsadresseid uuid,
@@ -135,8 +122,6 @@ PRIMARY KEY(bygningid, adgangsadresseid)
 CREATE TABLE bygningtilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, bygningtilknytning.* FROM bygningtilknytning WHERE false);
 CREATE INDEX ON bygningtilknytning_changes(txid);
 CREATE INDEX ON bygningtilknytning_changes(bygningid,adgangsadresseid);
-DROP TABLE IF EXISTS dagi_postnummer CASCADE;
-DROP TABLE IF EXISTS dagi_postnummer_changes CASCADE;
 create table dagi_postnummer(
 ændret text,
 geo_ændret text,
@@ -152,8 +137,6 @@ PRIMARY KEY(nr)
 CREATE TABLE dagi_postnummer_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dagi_postnummer.* FROM dagi_postnummer WHERE false);
 CREATE INDEX ON dagi_postnummer_changes(txid);
 CREATE INDEX ON dagi_postnummer_changes(nr);
-DROP TABLE IF EXISTS dar_adresse_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_adresse_aktuel_changes CASCADE;
 create table dar_adresse_aktuel(
 id uuid,
 status integer,
@@ -167,8 +150,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_adresse_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_adresse_aktuel.* FROM dar_adresse_aktuel WHERE false);
 CREATE INDEX ON dar_adresse_aktuel_changes(txid);
 CREATE INDEX ON dar_adresse_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_adresse_historik CASCADE;
-DROP TABLE IF EXISTS dar_adresse_historik_changes CASCADE;
 create table dar_adresse_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -185,8 +166,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_adresse_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_adresse_historik.* FROM dar_adresse_historik WHERE false);
 CREATE INDEX ON dar_adresse_historik_changes(txid);
 CREATE INDEX ON dar_adresse_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_adressepunkt_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_adressepunkt_aktuel_changes CASCADE;
 create table dar_adressepunkt_aktuel(
 id uuid,
 status integer,
@@ -200,8 +179,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_adressepunkt_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_adressepunkt_aktuel.* FROM dar_adressepunkt_aktuel WHERE false);
 CREATE INDEX ON dar_adressepunkt_aktuel_changes(txid);
 CREATE INDEX ON dar_adressepunkt_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_adressepunkt_historik CASCADE;
-DROP TABLE IF EXISTS dar_adressepunkt_historik_changes CASCADE;
 create table dar_adressepunkt_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -218,8 +195,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_adressepunkt_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_adressepunkt_historik.* FROM dar_adressepunkt_historik WHERE false);
 CREATE INDEX ON dar_adressepunkt_historik_changes(txid);
 CREATE INDEX ON dar_adressepunkt_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_darafstemningsomraade_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_darafstemningsomraade_aktuel_changes CASCADE;
 create table dar_darafstemningsomraade_aktuel(
 id uuid,
 status integer,
@@ -231,8 +206,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_darafstemningsomraade_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darafstemningsomraade_aktuel.* FROM dar_darafstemningsomraade_aktuel WHERE false);
 CREATE INDEX ON dar_darafstemningsomraade_aktuel_changes(txid);
 CREATE INDEX ON dar_darafstemningsomraade_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_darafstemningsomraade_historik CASCADE;
-DROP TABLE IF EXISTS dar_darafstemningsomraade_historik_changes CASCADE;
 create table dar_darafstemningsomraade_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -247,8 +220,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_darafstemningsomraade_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darafstemningsomraade_historik.* FROM dar_darafstemningsomraade_historik WHERE false);
 CREATE INDEX ON dar_darafstemningsomraade_historik_changes(txid);
 CREATE INDEX ON dar_darafstemningsomraade_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_darkommuneinddeling_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_darkommuneinddeling_aktuel_changes CASCADE;
 create table dar_darkommuneinddeling_aktuel(
 id uuid,
 status integer,
@@ -260,8 +231,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_darkommuneinddeling_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darkommuneinddeling_aktuel.* FROM dar_darkommuneinddeling_aktuel WHERE false);
 CREATE INDEX ON dar_darkommuneinddeling_aktuel_changes(txid);
 CREATE INDEX ON dar_darkommuneinddeling_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_darkommuneinddeling_historik CASCADE;
-DROP TABLE IF EXISTS dar_darkommuneinddeling_historik_changes CASCADE;
 create table dar_darkommuneinddeling_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -276,8 +245,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_darkommuneinddeling_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darkommuneinddeling_historik.* FROM dar_darkommuneinddeling_historik WHERE false);
 CREATE INDEX ON dar_darkommuneinddeling_historik_changes(txid);
 CREATE INDEX ON dar_darkommuneinddeling_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_darmenighedsraadsafstemningsomraade_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_darmenighedsraadsafstemningsomraade_aktuel_changes CASCADE;
 create table dar_darmenighedsraadsafstemningsomraade_aktuel(
 id uuid,
 status integer,
@@ -289,8 +256,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_darmenighedsraadsafstemningsomraade_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darmenighedsraadsafstemningsomraade_aktuel.* FROM dar_darmenighedsraadsafstemningsomraade_aktuel WHERE false);
 CREATE INDEX ON dar_darmenighedsraadsafstemningsomraade_aktuel_changes(txid);
 CREATE INDEX ON dar_darmenighedsraadsafstemningsomraade_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_darmenighedsraasafstemningsomraade_historik CASCADE;
-DROP TABLE IF EXISTS dar_darmenighedsraasafstemningsomraade_historik_changes CASCADE;
 create table dar_darmenighedsraasafstemningsomraade_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -305,8 +270,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_darmenighedsraasafstemningsomraade_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darmenighedsraasafstemningsomraade_historik.* FROM dar_darmenighedsraasafstemningsomraade_historik WHERE false);
 CREATE INDEX ON dar_darmenighedsraasafstemningsomraade_historik_changes(txid);
 CREATE INDEX ON dar_darmenighedsraasafstemningsomraade_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_darsogneinddeling_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_darsogneinddeling_aktuel_changes CASCADE;
 create table dar_darsogneinddeling_aktuel(
 id uuid,
 status integer,
@@ -318,8 +281,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_darsogneinddeling_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darsogneinddeling_aktuel.* FROM dar_darsogneinddeling_aktuel WHERE false);
 CREATE INDEX ON dar_darsogneinddeling_aktuel_changes(txid);
 CREATE INDEX ON dar_darsogneinddeling_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_darsogneinddeling_historik CASCADE;
-DROP TABLE IF EXISTS dar_darsogneinddeling_historik_changes CASCADE;
 create table dar_darsogneinddeling_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -334,8 +295,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_darsogneinddeling_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_darsogneinddeling_historik.* FROM dar_darsogneinddeling_historik WHERE false);
 CREATE INDEX ON dar_darsogneinddeling_historik_changes(txid);
 CREATE INDEX ON dar_darsogneinddeling_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_husnummer_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_husnummer_aktuel_changes CASCADE;
 create table dar_husnummer_aktuel(
 id uuid,
 status integer,
@@ -361,8 +320,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_husnummer_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_husnummer_aktuel.* FROM dar_husnummer_aktuel WHERE false);
 CREATE INDEX ON dar_husnummer_aktuel_changes(txid);
 CREATE INDEX ON dar_husnummer_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_husnummer_historik CASCADE;
-DROP TABLE IF EXISTS dar_husnummer_historik_changes CASCADE;
 create table dar_husnummer_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -391,8 +348,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_husnummer_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_husnummer_historik.* FROM dar_husnummer_historik WHERE false);
 CREATE INDEX ON dar_husnummer_historik_changes(txid);
 CREATE INDEX ON dar_husnummer_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_navngivenvej_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvej_aktuel_changes CASCADE;
 create table dar_navngivenvej_aktuel(
 id uuid,
 status integer,
@@ -414,8 +369,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_navngivenvej_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvej_aktuel.* FROM dar_navngivenvej_aktuel WHERE false);
 CREATE INDEX ON dar_navngivenvej_aktuel_changes(txid);
 CREATE INDEX ON dar_navngivenvej_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_navngivenvej_historik CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvej_historik_changes CASCADE;
 create table dar_navngivenvej_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -440,8 +393,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_navngivenvej_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvej_historik.* FROM dar_navngivenvej_historik WHERE false);
 CREATE INDEX ON dar_navngivenvej_historik_changes(txid);
 CREATE INDEX ON dar_navngivenvej_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_navngivenvejkommunedel_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvejkommunedel_aktuel_changes CASCADE;
 create table dar_navngivenvejkommunedel_aktuel(
 id uuid,
 status integer,
@@ -453,8 +404,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_navngivenvejkommunedel_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvejkommunedel_aktuel.* FROM dar_navngivenvejkommunedel_aktuel WHERE false);
 CREATE INDEX ON dar_navngivenvejkommunedel_aktuel_changes(txid);
 CREATE INDEX ON dar_navngivenvejkommunedel_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_navngivenvejkommunedel_historik CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvejkommunedel_historik_changes CASCADE;
 create table dar_navngivenvejkommunedel_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -469,8 +418,8 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_navngivenvejkommunedel_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvejkommunedel_historik.* FROM dar_navngivenvejkommunedel_historik WHERE false);
 CREATE INDEX ON dar_navngivenvejkommunedel_historik_changes(txid);
 CREATE INDEX ON dar_navngivenvejkommunedel_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_navngivenvejpostnummerrelation_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvejpostnummerrelation_aktuel_changes CASCADE;
+
+
 create table dar_navngivenvejpostnummerrelation_aktuel(
 id uuid,
 status integer,
@@ -481,8 +430,8 @@ PRIMARY KEY(id)
 CREATE TABLE dar_navngivenvejpostnummerrelation_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvejpostnummerrelation_aktuel.* FROM dar_navngivenvejpostnummerrelation_aktuel WHERE false);
 CREATE INDEX ON dar_navngivenvejpostnummerrelation_aktuel_changes(txid);
 CREATE INDEX ON dar_navngivenvejpostnummerrelation_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_navngivenvejpostnummerrelation_historik CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvejpostnummerrelation_historik_changes CASCADE;
+
+
 create table dar_navngivenvejpostnummerrelation_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -496,8 +445,8 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_navngivenvejpostnummerrelation_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvejpostnummerrelation_historik.* FROM dar_navngivenvejpostnummerrelation_historik WHERE false);
 CREATE INDEX ON dar_navngivenvejpostnummerrelation_historik_changes(txid);
 CREATE INDEX ON dar_navngivenvejpostnummerrelation_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_navngivenvejsupplerendebynavnrelation_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvejsupplerendebynavnrelation_aktuel_changes CASCADE;
+
+
 create table dar_navngivenvejsupplerendebynavnrelation_aktuel(
 id uuid,
 status integer,
@@ -508,8 +457,8 @@ PRIMARY KEY(id)
 CREATE TABLE dar_navngivenvejsupplerendebynavnrelation_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvejsupplerendebynavnrelation_aktuel.* FROM dar_navngivenvejsupplerendebynavnrelation_aktuel WHERE false);
 CREATE INDEX ON dar_navngivenvejsupplerendebynavnrelation_aktuel_changes(txid);
 CREATE INDEX ON dar_navngivenvejsupplerendebynavnrelation_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_navngivenvejsupplerendebynavnrelation_historik CASCADE;
-DROP TABLE IF EXISTS dar_navngivenvejsupplerendebynavnrelation_historik_changes CASCADE;
+
+
 create table dar_navngivenvejsupplerendebynavnrelation_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -523,8 +472,8 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_navngivenvejsupplerendebynavnrelation_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_navngivenvejsupplerendebynavnrelation_historik.* FROM dar_navngivenvejsupplerendebynavnrelation_historik WHERE false);
 CREATE INDEX ON dar_navngivenvejsupplerendebynavnrelation_historik_changes(txid);
 CREATE INDEX ON dar_navngivenvejsupplerendebynavnrelation_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_postnummer_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_postnummer_aktuel_changes CASCADE;
+
+
 create table dar_postnummer_aktuel(
 id uuid,
 status integer,
@@ -536,8 +485,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_postnummer_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_postnummer_aktuel.* FROM dar_postnummer_aktuel WHERE false);
 CREATE INDEX ON dar_postnummer_aktuel_changes(txid);
 CREATE INDEX ON dar_postnummer_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_postnummer_historik CASCADE;
-DROP TABLE IF EXISTS dar_postnummer_historik_changes CASCADE;
 create table dar_postnummer_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -552,8 +499,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_postnummer_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_postnummer_historik.* FROM dar_postnummer_historik WHERE false);
 CREATE INDEX ON dar_postnummer_historik_changes(txid);
 CREATE INDEX ON dar_postnummer_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_reserveretvejnavn_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_reserveretvejnavn_aktuel_changes CASCADE;
 create table dar_reserveretvejnavn_aktuel(
 id uuid,
 status integer,
@@ -569,8 +514,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_reserveretvejnavn_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_reserveretvejnavn_aktuel.* FROM dar_reserveretvejnavn_aktuel WHERE false);
 CREATE INDEX ON dar_reserveretvejnavn_aktuel_changes(txid);
 CREATE INDEX ON dar_reserveretvejnavn_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_reserveretvejnavn_historik CASCADE;
-DROP TABLE IF EXISTS dar_reserveretvejnavn_historik_changes CASCADE;
 create table dar_reserveretvejnavn_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -589,8 +532,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_reserveretvejnavn_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_reserveretvejnavn_historik.* FROM dar_reserveretvejnavn_historik WHERE false);
 CREATE INDEX ON dar_reserveretvejnavn_historik_changes(txid);
 CREATE INDEX ON dar_reserveretvejnavn_historik_changes(rowkey);
-DROP TABLE IF EXISTS dar_supplerendebynavn_aktuel CASCADE;
-DROP TABLE IF EXISTS dar_supplerendebynavn_aktuel_changes CASCADE;
 create table dar_supplerendebynavn_aktuel(
 id uuid,
 status integer,
@@ -601,8 +542,6 @@ PRIMARY KEY(id)
 CREATE TABLE dar_supplerendebynavn_aktuel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_supplerendebynavn_aktuel.* FROM dar_supplerendebynavn_aktuel WHERE false);
 CREATE INDEX ON dar_supplerendebynavn_aktuel_changes(txid);
 CREATE INDEX ON dar_supplerendebynavn_aktuel_changes(id);
-DROP TABLE IF EXISTS dar_supplerendebynavn_historik CASCADE;
-DROP TABLE IF EXISTS dar_supplerendebynavn_historik_changes CASCADE;
 create table dar_supplerendebynavn_historik(
 rowkey integer,
 virkningstart timestamptz,
@@ -616,8 +555,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE dar_supplerendebynavn_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, dar_supplerendebynavn_historik.* FROM dar_supplerendebynavn_historik WHERE false);
 CREATE INDEX ON dar_supplerendebynavn_historik_changes(txid);
 CREATE INDEX ON dar_supplerendebynavn_historik_changes(rowkey);
-DROP TABLE IF EXISTS ejerlav CASCADE;
-DROP TABLE IF EXISTS ejerlav_changes CASCADE;
 create table ejerlav(
 kode integer,
 navn text,
@@ -632,8 +569,6 @@ PRIMARY KEY(kode)
 CREATE TABLE ejerlav_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, ejerlav.* FROM ejerlav WHERE false);
 CREATE INDEX ON ejerlav_changes(txid);
 CREATE INDEX ON ejerlav_changes(kode);
-DROP TABLE IF EXISTS hoejde CASCADE;
-DROP TABLE IF EXISTS hoejde_changes CASCADE;
 create table hoejde(
 husnummerid uuid,
 højde double precision,
@@ -642,8 +577,6 @@ PRIMARY KEY(husnummerid)
 CREATE TABLE hoejde_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, hoejde.* FROM hoejde WHERE false);
 CREATE INDEX ON hoejde_changes(txid);
 CREATE INDEX ON hoejde_changes(husnummerid);
-DROP TABLE IF EXISTS ikke_brofast_husnummer CASCADE;
-DROP TABLE IF EXISTS ikke_brofast_husnummer_changes CASCADE;
 create table ikke_brofast_husnummer(
 husnummerid uuid,
 PRIMARY KEY(husnummerid)
@@ -651,8 +584,6 @@ PRIMARY KEY(husnummerid)
 CREATE TABLE ikke_brofast_husnummer_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, ikke_brofast_husnummer.* FROM ikke_brofast_husnummer WHERE false);
 CREATE INDEX ON ikke_brofast_husnummer_changes(txid);
 CREATE INDEX ON ikke_brofast_husnummer_changes(husnummerid);
-DROP TABLE IF EXISTS jordstykke CASCADE;
-DROP TABLE IF EXISTS jordstykke_changes CASCADE;
 create table jordstykke(
 ejerlavkode integer,
 matrikelnr text,
@@ -680,8 +611,6 @@ PRIMARY KEY(ejerlavkode, matrikelnr)
 CREATE TABLE jordstykke_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, jordstykke.* FROM jordstykke WHERE false);
 CREATE INDEX ON jordstykke_changes(txid);
 CREATE INDEX ON jordstykke_changes(ejerlavkode,matrikelnr);
-DROP TABLE IF EXISTS jordstykketilknytning CASCADE;
-DROP TABLE IF EXISTS jordstykketilknytning_changes CASCADE;
 create table jordstykketilknytning(
 ejerlavkode integer,
 matrikelnr text,
@@ -691,8 +620,6 @@ PRIMARY KEY(ejerlavkode, matrikelnr, adgangsadresseid)
 CREATE TABLE jordstykketilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, jordstykketilknytning.* FROM jordstykketilknytning WHERE false);
 CREATE INDEX ON jordstykketilknytning_changes(txid);
 CREATE INDEX ON jordstykketilknytning_changes(ejerlavkode,matrikelnr,adgangsadresseid);
-DROP TABLE IF EXISTS kommune CASCADE;
-DROP TABLE IF EXISTS kommune_changes CASCADE;
 create table kommune(
 ændret text,
 geo_ændret text,
@@ -710,8 +637,6 @@ PRIMARY KEY(kode)
 CREATE TABLE kommune_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, kommune.* FROM kommune WHERE false);
 CREATE INDEX ON kommune_changes(txid);
 CREATE INDEX ON kommune_changes(kode);
-DROP TABLE IF EXISTS kommunetilknytning CASCADE;
-DROP TABLE IF EXISTS kommunetilknytning_changes CASCADE;
 create table kommunetilknytning(
 adgangsadresseid uuid,
 kommunekode text,
@@ -720,8 +645,6 @@ PRIMARY KEY(adgangsadresseid, kommunekode)
 CREATE TABLE kommunetilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, kommunetilknytning.* FROM kommunetilknytning WHERE false);
 CREATE INDEX ON kommunetilknytning_changes(txid);
 CREATE INDEX ON kommunetilknytning_changes(adgangsadresseid,kommunekode);
-DROP TABLE IF EXISTS landpostnummer CASCADE;
-DROP TABLE IF EXISTS landpostnummer_changes CASCADE;
 create table landpostnummer(
 ændret text,
 geo_ændret text,
@@ -736,8 +659,6 @@ PRIMARY KEY(nr)
 CREATE TABLE landpostnummer_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, landpostnummer.* FROM landpostnummer WHERE false);
 CREATE INDEX ON landpostnummer_changes(txid);
 CREATE INDEX ON landpostnummer_changes(nr);
-DROP TABLE IF EXISTS landsdel CASCADE;
-DROP TABLE IF EXISTS landsdel_changes CASCADE;
 create table landsdel(
 ændret text,
 geo_ændret text,
@@ -754,8 +675,6 @@ PRIMARY KEY(nuts3)
 CREATE TABLE landsdel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, landsdel.* FROM landsdel WHERE false);
 CREATE INDEX ON landsdel_changes(txid);
 CREATE INDEX ON landsdel_changes(nuts3);
-DROP TABLE IF EXISTS landsdelstilknytning CASCADE;
-DROP TABLE IF EXISTS landsdelstilknytning_changes CASCADE;
 create table landsdelstilknytning(
 adgangsadresseid uuid,
 nuts3 text,
@@ -764,8 +683,6 @@ PRIMARY KEY(adgangsadresseid, nuts3)
 CREATE TABLE landsdelstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, landsdelstilknytning.* FROM landsdelstilknytning WHERE false);
 CREATE INDEX ON landsdelstilknytning_changes(txid);
 CREATE INDEX ON landsdelstilknytning_changes(adgangsadresseid,nuts3);
-DROP TABLE IF EXISTS menighedsraadsafstemningsomraade CASCADE;
-DROP TABLE IF EXISTS menighedsraadsafstemningsomraade_changes CASCADE;
 create table menighedsraadsafstemningsomraade(
 ændret text,
 geo_ændret text,
@@ -784,8 +701,6 @@ PRIMARY KEY(kommunekode, nummer)
 CREATE TABLE menighedsraadsafstemningsomraade_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, menighedsraadsafstemningsomraade.* FROM menighedsraadsafstemningsomraade WHERE false);
 CREATE INDEX ON menighedsraadsafstemningsomraade_changes(txid);
 CREATE INDEX ON menighedsraadsafstemningsomraade_changes(kommunekode,nummer);
-DROP TABLE IF EXISTS menighedsraadsafstemningsomraadetilknytning CASCADE;
-DROP TABLE IF EXISTS menighedsraadsafstemningsomraadetilknytning_changes CASCADE;
 create table menighedsraadsafstemningsomraadetilknytning(
 adgangsadresseid uuid,
 kommunekode text,
@@ -795,8 +710,6 @@ PRIMARY KEY(adgangsadresseid, kommunekode, menighedsrådsafstemningsområdenumme
 CREATE TABLE menighedsraadsafstemningsomraadetilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, menighedsraadsafstemningsomraadetilknytning.* FROM menighedsraadsafstemningsomraadetilknytning WHERE false);
 CREATE INDEX ON menighedsraadsafstemningsomraadetilknytning_changes(txid);
 CREATE INDEX ON menighedsraadsafstemningsomraadetilknytning_changes(adgangsadresseid,kommunekode,menighedsrådsafstemningsområdenummer);
-DROP TABLE IF EXISTS navngivenvej CASCADE;
-DROP TABLE IF EXISTS navngivenvej_changes CASCADE;
 create table navngivenvej(
 id uuid,
 darstatus text,
@@ -817,8 +730,6 @@ PRIMARY KEY(id)
 CREATE TABLE navngivenvej_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, navngivenvej.* FROM navngivenvej WHERE false);
 CREATE INDEX ON navngivenvej_changes(txid);
 CREATE INDEX ON navngivenvej_changes(id);
-DROP TABLE IF EXISTS opstillingskreds CASCADE;
-DROP TABLE IF EXISTS opstillingskreds_changes CASCADE;
 create table opstillingskreds(
 ændret text,
 geo_ændret text,
@@ -838,8 +749,6 @@ PRIMARY KEY(kode)
 CREATE TABLE opstillingskreds_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, opstillingskreds.* FROM opstillingskreds WHERE false);
 CREATE INDEX ON opstillingskreds_changes(txid);
 CREATE INDEX ON opstillingskreds_changes(kode);
-DROP TABLE IF EXISTS opstillingskredstilknytning CASCADE;
-DROP TABLE IF EXISTS opstillingskredstilknytning_changes CASCADE;
 create table opstillingskredstilknytning(
 adgangsadresseid uuid,
 opstillingskredskode text,
@@ -848,8 +757,6 @@ PRIMARY KEY(adgangsadresseid, opstillingskredskode)
 CREATE TABLE opstillingskredstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, opstillingskredstilknytning.* FROM opstillingskredstilknytning WHERE false);
 CREATE INDEX ON opstillingskredstilknytning_changes(txid);
 CREATE INDEX ON opstillingskredstilknytning_changes(adgangsadresseid,opstillingskredskode);
-DROP TABLE IF EXISTS politikreds CASCADE;
-DROP TABLE IF EXISTS politikreds_changes CASCADE;
 create table politikreds(
 ændret text,
 geo_ændret text,
@@ -865,8 +772,6 @@ PRIMARY KEY(kode)
 CREATE TABLE politikreds_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, politikreds.* FROM politikreds WHERE false);
 CREATE INDEX ON politikreds_changes(txid);
 CREATE INDEX ON politikreds_changes(kode);
-DROP TABLE IF EXISTS politikredstilknytning CASCADE;
-DROP TABLE IF EXISTS politikredstilknytning_changes CASCADE;
 create table politikredstilknytning(
 adgangsadresseid uuid,
 politikredskode text,
@@ -875,8 +780,6 @@ PRIMARY KEY(adgangsadresseid, politikredskode)
 CREATE TABLE politikredstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, politikredstilknytning.* FROM politikredstilknytning WHERE false);
 CREATE INDEX ON politikredstilknytning_changes(txid);
 CREATE INDEX ON politikredstilknytning_changes(adgangsadresseid,politikredskode);
-DROP TABLE IF EXISTS postnummer CASCADE;
-DROP TABLE IF EXISTS postnummer_changes CASCADE;
 create table postnummer(
 nr text,
 navn text,
@@ -886,8 +789,6 @@ PRIMARY KEY(nr)
 CREATE TABLE postnummer_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, postnummer.* FROM postnummer WHERE false);
 CREATE INDEX ON postnummer_changes(txid);
 CREATE INDEX ON postnummer_changes(nr);
-DROP TABLE IF EXISTS postnummertilknytning CASCADE;
-DROP TABLE IF EXISTS postnummertilknytning_changes CASCADE;
 create table postnummertilknytning(
 adgangsadresseid uuid,
 postnummer text,
@@ -896,8 +797,6 @@ PRIMARY KEY(adgangsadresseid, postnummer)
 CREATE TABLE postnummertilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, postnummertilknytning.* FROM postnummertilknytning WHERE false);
 CREATE INDEX ON postnummertilknytning_changes(txid);
 CREATE INDEX ON postnummertilknytning_changes(adgangsadresseid,postnummer);
-DROP TABLE IF EXISTS region CASCADE;
-DROP TABLE IF EXISTS region_changes CASCADE;
 create table region(
 ændret text,
 geo_ændret text,
@@ -914,8 +813,6 @@ PRIMARY KEY(kode)
 CREATE TABLE region_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, region.* FROM region WHERE false);
 CREATE INDEX ON region_changes(txid);
 CREATE INDEX ON region_changes(kode);
-DROP TABLE IF EXISTS regionstilknytning CASCADE;
-DROP TABLE IF EXISTS regionstilknytning_changes CASCADE;
 create table regionstilknytning(
 adgangsadresseid uuid,
 regionskode text,
@@ -924,8 +821,6 @@ PRIMARY KEY(adgangsadresseid, regionskode)
 CREATE TABLE regionstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, regionstilknytning.* FROM regionstilknytning WHERE false);
 CREATE INDEX ON regionstilknytning_changes(txid);
 CREATE INDEX ON regionstilknytning_changes(adgangsadresseid,regionskode);
-DROP TABLE IF EXISTS retskreds CASCADE;
-DROP TABLE IF EXISTS retskreds_changes CASCADE;
 create table retskreds(
 ændret text,
 geo_ændret text,
@@ -941,8 +836,6 @@ PRIMARY KEY(kode)
 CREATE TABLE retskreds_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, retskreds.* FROM retskreds WHERE false);
 CREATE INDEX ON retskreds_changes(txid);
 CREATE INDEX ON retskreds_changes(kode);
-DROP TABLE IF EXISTS retskredstilknytning CASCADE;
-DROP TABLE IF EXISTS retskredstilknytning_changes CASCADE;
 create table retskredstilknytning(
 adgangsadresseid uuid,
 retskredskode text,
@@ -951,8 +844,6 @@ PRIMARY KEY(adgangsadresseid, retskredskode)
 CREATE TABLE retskredstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, retskredstilknytning.* FROM retskredstilknytning WHERE false);
 CREATE INDEX ON retskredstilknytning_changes(txid);
 CREATE INDEX ON retskredstilknytning_changes(adgangsadresseid,retskredskode);
-DROP TABLE IF EXISTS sogn CASCADE;
-DROP TABLE IF EXISTS sogn_changes CASCADE;
 create table sogn(
 ændret text,
 geo_ændret text,
@@ -968,8 +859,6 @@ PRIMARY KEY(kode)
 CREATE TABLE sogn_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, sogn.* FROM sogn WHERE false);
 CREATE INDEX ON sogn_changes(txid);
 CREATE INDEX ON sogn_changes(kode);
-DROP TABLE IF EXISTS sognetilknytning CASCADE;
-DROP TABLE IF EXISTS sognetilknytning_changes CASCADE;
 create table sognetilknytning(
 adgangsadresseid uuid,
 sognekode text,
@@ -978,8 +867,6 @@ PRIMARY KEY(adgangsadresseid, sognekode)
 CREATE TABLE sognetilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, sognetilknytning.* FROM sognetilknytning WHERE false);
 CREATE INDEX ON sognetilknytning_changes(txid);
 CREATE INDEX ON sognetilknytning_changes(adgangsadresseid,sognekode);
-DROP TABLE IF EXISTS sted CASCADE;
-DROP TABLE IF EXISTS sted_changes CASCADE;
 create table sted(
 id uuid,
 hovedtype text,
@@ -994,8 +881,6 @@ PRIMARY KEY(id)
 CREATE TABLE sted_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, sted.* FROM sted WHERE false);
 CREATE INDEX ON sted_changes(txid);
 CREATE INDEX ON sted_changes(id);
-DROP TABLE IF EXISTS stednavn CASCADE;
-DROP TABLE IF EXISTS stednavn_changes CASCADE;
 create table stednavn(
 stedid uuid,
 navn text,
@@ -1006,8 +891,6 @@ PRIMARY KEY(stedid, navn)
 CREATE TABLE stednavn_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, stednavn.* FROM stednavn WHERE false);
 CREATE INDEX ON stednavn_changes(txid);
 CREATE INDEX ON stednavn_changes(stedid,navn);
-DROP TABLE IF EXISTS stednavntilknytning CASCADE;
-DROP TABLE IF EXISTS stednavntilknytning_changes CASCADE;
 create table stednavntilknytning(
 stednavn_id uuid,
 adgangsadresse_id uuid,
@@ -1016,8 +899,6 @@ PRIMARY KEY(stednavn_id, adgangsadresse_id)
 CREATE TABLE stednavntilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, stednavntilknytning.* FROM stednavntilknytning WHERE false);
 CREATE INDEX ON stednavntilknytning_changes(txid);
 CREATE INDEX ON stednavntilknytning_changes(stednavn_id,adgangsadresse_id);
-DROP TABLE IF EXISTS stedtilknytning CASCADE;
-DROP TABLE IF EXISTS stedtilknytning_changes CASCADE;
 create table stedtilknytning(
 stedid uuid,
 adgangsadresseid uuid,
@@ -1026,8 +907,6 @@ PRIMARY KEY(stedid, adgangsadresseid)
 CREATE TABLE stedtilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, stedtilknytning.* FROM stedtilknytning WHERE false);
 CREATE INDEX ON stedtilknytning_changes(txid);
 CREATE INDEX ON stedtilknytning_changes(stedid,adgangsadresseid);
-DROP TABLE IF EXISTS storkreds CASCADE;
-DROP TABLE IF EXISTS storkreds_changes CASCADE;
 create table storkreds(
 ændret text,
 geo_ændret text,
@@ -1044,8 +923,6 @@ PRIMARY KEY(nummer)
 CREATE TABLE storkreds_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, storkreds.* FROM storkreds WHERE false);
 CREATE INDEX ON storkreds_changes(txid);
 CREATE INDEX ON storkreds_changes(nummer);
-DROP TABLE IF EXISTS storkredstilknytning CASCADE;
-DROP TABLE IF EXISTS storkredstilknytning_changes CASCADE;
 create table storkredstilknytning(
 adgangsadresseid uuid,
 storkredsnummer text,
@@ -1054,8 +931,6 @@ PRIMARY KEY(adgangsadresseid, storkredsnummer)
 CREATE TABLE storkredstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, storkredstilknytning.* FROM storkredstilknytning WHERE false);
 CREATE INDEX ON storkredstilknytning_changes(txid);
 CREATE INDEX ON storkredstilknytning_changes(adgangsadresseid,storkredsnummer);
-DROP TABLE IF EXISTS supplerendebynavn CASCADE;
-DROP TABLE IF EXISTS supplerendebynavn_changes CASCADE;
 create table supplerendebynavn(
 ændret text,
 geo_ændret text,
@@ -1071,8 +946,6 @@ PRIMARY KEY(dagi_id)
 CREATE TABLE supplerendebynavn_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, supplerendebynavn.* FROM supplerendebynavn WHERE false);
 CREATE INDEX ON supplerendebynavn_changes(txid);
 CREATE INDEX ON supplerendebynavn_changes(dagi_id);
-DROP TABLE IF EXISTS supplerendebynavntilknytning CASCADE;
-DROP TABLE IF EXISTS supplerendebynavntilknytning_changes CASCADE;
 create table supplerendebynavntilknytning(
 adgangsadresseid uuid,
 dagi_id text,
@@ -1081,8 +954,6 @@ PRIMARY KEY(adgangsadresseid, dagi_id)
 CREATE TABLE supplerendebynavntilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, supplerendebynavntilknytning.* FROM supplerendebynavntilknytning WHERE false);
 CREATE INDEX ON supplerendebynavntilknytning_changes(txid);
 CREATE INDEX ON supplerendebynavntilknytning_changes(adgangsadresseid,dagi_id);
-DROP TABLE IF EXISTS valglandsdel CASCADE;
-DROP TABLE IF EXISTS valglandsdel_changes CASCADE;
 create table valglandsdel(
 ændret text,
 geo_ændret text,
@@ -1097,8 +968,6 @@ PRIMARY KEY(bogstav)
 CREATE TABLE valglandsdel_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, valglandsdel.* FROM valglandsdel WHERE false);
 CREATE INDEX ON valglandsdel_changes(txid);
 CREATE INDEX ON valglandsdel_changes(bogstav);
-DROP TABLE IF EXISTS valglandsdelstilknytning CASCADE;
-DROP TABLE IF EXISTS valglandsdelstilknytning_changes CASCADE;
 create table valglandsdelstilknytning(
 adgangsadresseid uuid,
 valglandsdelsbogstav text,
@@ -1107,8 +976,6 @@ PRIMARY KEY(adgangsadresseid, valglandsdelsbogstav)
 CREATE TABLE valglandsdelstilknytning_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, valglandsdelstilknytning.* FROM valglandsdelstilknytning WHERE false);
 CREATE INDEX ON valglandsdelstilknytning_changes(txid);
 CREATE INDEX ON valglandsdelstilknytning_changes(adgangsadresseid,valglandsdelsbogstav);
-DROP TABLE IF EXISTS vask_adresse_historik CASCADE;
-DROP TABLE IF EXISTS vask_adresse_historik_changes CASCADE;
 create table vask_adresse_historik(
 husnummerid uuid,
 etage text,
@@ -1132,8 +999,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE vask_adresse_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, vask_adresse_historik.* FROM vask_adresse_historik WHERE false);
 CREATE INDEX ON vask_adresse_historik_changes(txid);
 CREATE INDEX ON vask_adresse_historik_changes(rowkey);
-DROP TABLE IF EXISTS vask_husnummer_historik CASCADE;
-DROP TABLE IF EXISTS vask_husnummer_historik_changes CASCADE;
 create table vask_husnummer_historik(
 rowkey integer,
 id uuid,
@@ -1154,8 +1019,6 @@ PRIMARY KEY(rowkey)
 CREATE TABLE vask_husnummer_historik_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, vask_husnummer_historik.* FROM vask_husnummer_historik WHERE false);
 CREATE INDEX ON vask_husnummer_historik_changes(txid);
 CREATE INDEX ON vask_husnummer_historik_changes(rowkey);
-DROP TABLE IF EXISTS vejmidte CASCADE;
-DROP TABLE IF EXISTS vejmidte_changes CASCADE;
 create table vejmidte(
 kommunekode text,
 vejkode text,
@@ -1165,8 +1028,6 @@ PRIMARY KEY(kommunekode, vejkode)
 CREATE TABLE vejmidte_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, vejmidte.* FROM vejmidte WHERE false);
 CREATE INDEX ON vejmidte_changes(txid);
 CREATE INDEX ON vejmidte_changes(kommunekode,vejkode);
-DROP TABLE IF EXISTS vejpunkt CASCADE;
-DROP TABLE IF EXISTS vejpunkt_changes CASCADE;
 create table vejpunkt(
 id uuid,
 kilde text,
@@ -1178,8 +1039,6 @@ PRIMARY KEY(id)
 CREATE TABLE vejpunkt_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, vejpunkt.* FROM vejpunkt WHERE false);
 CREATE INDEX ON vejpunkt_changes(txid);
 CREATE INDEX ON vejpunkt_changes(id);
-DROP TABLE IF EXISTS vejstykke CASCADE;
-DROP TABLE IF EXISTS vejstykke_changes CASCADE;
 create table vejstykke(
 id text,
 kommunekode text,
@@ -1194,8 +1053,6 @@ PRIMARY KEY(kommunekode, kode)
 CREATE TABLE vejstykke_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, vejstykke.* FROM vejstykke WHERE false);
 CREATE INDEX ON vejstykke_changes(txid);
 CREATE INDEX ON vejstykke_changes(kommunekode,kode);
-DROP TABLE IF EXISTS vejstykkepostnummerrelation CASCADE;
-DROP TABLE IF EXISTS vejstykkepostnummerrelation_changes CASCADE;
 create table vejstykkepostnummerrelation(
 kommunekode text,
 vejkode text,
@@ -1205,8 +1062,6 @@ PRIMARY KEY(kommunekode, vejkode, postnr)
 CREATE TABLE vejstykkepostnummerrelation_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, vejstykkepostnummerrelation.* FROM vejstykkepostnummerrelation WHERE false);
 CREATE INDEX ON vejstykkepostnummerrelation_changes(txid);
 CREATE INDEX ON vejstykkepostnummerrelation_changes(kommunekode,vejkode,postnr);
-DROP TABLE IF EXISTS zone CASCADE;
-DROP TABLE IF EXISTS zone_changes CASCADE;
 create table zone(
 ændret text,
 geo_ændret text,
@@ -1220,8 +1075,6 @@ PRIMARY KEY(zone)
 CREATE TABLE zone_changes AS (SELECT NULL::integer as txid, NULL::dawa_replication.operation_type as operation, zone.* FROM zone WHERE false);
 CREATE INDEX ON zone_changes(txid);
 CREATE INDEX ON zone_changes(zone);
-DROP TABLE IF EXISTS zonetilknytning CASCADE;
-DROP TABLE IF EXISTS zonetilknytning_changes CASCADE;
 create table zonetilknytning(
 adgangsadresseid uuid,
 zone text,

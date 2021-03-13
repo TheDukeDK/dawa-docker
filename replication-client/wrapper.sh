@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATABASE_URL="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB"
+DATABASE_URL="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:${POSTGRES_DB_PORT}/$POSTGRES_DB"
 DEFAULT_SYNC_PERIOD=3600
 
 readonly REQUIRED_ENV_VARS=(
@@ -22,15 +22,13 @@ main() {
   fi
 
   check_env_vars_set
-  cd config
   execute_replication
   daemon_mode
 }
 
 execute_replication() {
   echo "INFO: Starting replication: `date`"
-  CONFIG=$(find config.json)
-  REPLICATION_CMD="dawa-replication-client replicate --database=${DATABASE_URL} --replication-config ${CONFIG}"
+  REPLICATION_CMD="dawa-replication-client replicate --database=${DATABASE_URL} --replication-config config.json"
   ${REPLICATION_CMD}
   if [[ $? -ne 0 ]]; then
     echo "WARNING: Replication of config ${file} did not succeed!"

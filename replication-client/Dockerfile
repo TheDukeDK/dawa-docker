@@ -1,8 +1,7 @@
 FROM node:lts
 
-RUN apt-get -qqq update
-
-RUN apt-get install -y -qqq postgresql-client
+RUN apt-get -qqq update && apt-get install -y -qqq postgresql-client && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g @dawadk/replication-client
 
@@ -10,15 +9,10 @@ RUN useradd --system dawa-replicator
 
 WORKDIR /app
 
-RUN mkdir config
-
-COPY config.json config/
-
-RUN chown -R dawa-replicator /app/config \
-    && chmod -R 700 /app/config
+COPY config.json .
 
 COPY wrapper.sh .
-RUN chown dawa-replicator wrapper.sh \
+RUN chown dawa-replicator wrapper.sh config.json \
     && chmod 700 wrapper.sh
 
 USER dawa-replicator
