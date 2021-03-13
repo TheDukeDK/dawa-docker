@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   postgres:
@@ -6,7 +6,7 @@ services:
     image: dawadk-postgres:1.0.0
     restart: unless-stopped
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       - POSTGRES_DB=$POSTGRES_DB_DATABASE
       - POSTGRES_USER=$POSTGRES_DB_USER
@@ -18,6 +18,7 @@ services:
       nofile:
         soft: 32000
         hard: 40000
+
   replication-client:
     build: replication-client
     image: dawadk-replication-client:1.0.0
@@ -28,8 +29,6 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_DB_PASSWORD
       - REPLICATOR_SYNC_PERIOD=$REPLICATOR_SYNC_PERIOD
     depends_on:
-      - postgres
-    links:
       - postgres
 volumes:
   dawadk_db_volume: {}

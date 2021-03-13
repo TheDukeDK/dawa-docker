@@ -1,0 +1,1227 @@
+{
+  "replication_url": "https://dawa.aws.dk/replikering",
+  "replication_schema": "dawa_replication",
+  "entities": [
+    {
+      "name": "adgangsadresse",
+      "attributes": [
+        "id",
+        "status",
+        "oprettet",
+        "ændret",
+        "ikrafttrædelsesdato",
+        "kommunekode",
+        "vejkode",
+        "husnr",
+        "supplerendebynavn",
+        "postnr",
+        "ejerlavkode",
+        "matrikelnr",
+        "esrejendomsnr",
+        "etrs89koordinat_øst",
+        "etrs89koordinat_nord",
+        "nøjagtighed",
+        "kilde",
+        "husnummerkilde",
+        "tekniskstandard",
+        "tekstretning",
+        "adressepunktændringsdato",
+        "esdhreference",
+        "journalnummer",
+        "højde",
+        "adgangspunktid",
+        "supplerendebynavn_dagi_id",
+        "vejpunkt_id",
+        "navngivenvej_id"
+      ]
+    },
+    {
+      "name": "adresse",
+      "attributes": [
+        "id",
+        "status",
+        "oprettet",
+        "ændret",
+        "ikrafttrædelsesdato",
+        "adgangsadresseid",
+        "etage",
+        "dør",
+        "kilde",
+        "esdhreference",
+        "journalnummer"
+      ]
+    },
+    {
+      "name": "afstemningsområde",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "nummer",
+        "navn",
+        "afstemningsstednavn",
+        "afstemningsstedadresse",
+        "kommunekode",
+        "opstillingskreds_dagi_id"
+      ]
+    },
+    {
+      "name": "afstemningsområdetilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "kommunekode",
+        "afstemningsområdenummer"
+      ]
+    },
+    {
+      "name": "brofasthed",
+      "attributes": [
+        "stedid",
+        "brofast"
+      ]
+    },
+    {
+      "name": "bygning",
+      "attributes": [
+        "id",
+        "bygningstype",
+        "metode3d",
+        "målested",
+        "bbrbygning_id",
+        "synlig",
+        "overlap",
+        "geometri"
+      ]
+    },
+    {
+      "name": "bygningtilknytning",
+      "attributes": [
+        "bygningid",
+        "adgangsadresseid"
+      ]
+    },
+    {
+      "name": "dagi_postnummer",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "nr",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_adresse_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "dørbetegnelse",
+        "dørpunkt_id",
+        "etagebetegnelse",
+        "fk_bbr_bygning_bygning",
+        "husnummer_id"
+      ]
+    },
+    {
+      "name": "dar_adresse_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "dørbetegnelse",
+        "dørpunkt_id",
+        "etagebetegnelse",
+        "fk_bbr_bygning_bygning",
+        "husnummer_id"
+      ]
+    },
+    {
+      "name": "dar_adressepunkt_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "oprindelse_kilde",
+        "oprindelse_nøjagtighedsklasse",
+        "oprindelse_registrering",
+        "oprindelse_tekniskstandard",
+        "position"
+      ]
+    },
+    {
+      "name": "dar_adressepunkt_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "oprindelse_kilde",
+        "oprindelse_nøjagtighedsklasse",
+        "oprindelse_registrering",
+        "oprindelse_tekniskstandard",
+        "position"
+      ]
+    },
+    {
+      "name": "dar_darafstemningsområde_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "afstemningsområde",
+        "afstemningsområdenummer",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_darafstemningsområde_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "afstemningsområde",
+        "afstemningsområdenummer",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_darkommuneinddeling_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "kommuneinddeling",
+        "kommunekode",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_darkommuneinddeling_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "kommuneinddeling",
+        "kommunekode",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_darmenighedsrådsafstemningsområde_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "mrafstemningsområde",
+        "mrafstemningsområdenummer",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_darmenighedsrådsafstemningsområde_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "mrafstemningsområde",
+        "mrafstemningsområdenummer",
+        "navn"
+      ]
+    },
+    {
+      "name": "dar_darsogneinddeling_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "navn",
+        "sogneinddeling",
+        "sognekode"
+      ]
+    },
+    {
+      "name": "dar_darsogneinddeling_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "navn",
+        "sogneinddeling",
+        "sognekode"
+      ]
+    },
+    {
+      "name": "dar_husnummer_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "adgangspunkt_id",
+        "darafstemningsområde_id",
+        "darkommune_id",
+        "darmenighedsrådsafstemningsområde_id",
+        "darsogneinddeling_id",
+        "fk_bbr_bygning_adgangtilbygning",
+        "fk_bbr_tekniskanlæg_adgangtiltekniskanlæg",
+        "fk_geodk_bygning_geodanmarkbygning",
+        "fk_geodk_vejmidte_vejmidte",
+        "fk_mu_jordstykke_foreløbigtplaceretpåjordstykke",
+        "fk_mu_jordstykke_jordstykke",
+        "husnummerretning",
+        "husnummertekst",
+        "navngivenvej_id",
+        "postnummer_id",
+        "supplerendebynavn_id",
+        "vejpunkt_id"
+      ]
+    },
+    {
+      "name": "dar_husnummer_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "adgangspunkt_id",
+        "darafstemningsområde_id",
+        "darkommune_id",
+        "darmenighedsrådsafstemningsområde_id",
+        "darsogneinddeling_id",
+        "fk_bbr_bygning_adgangtilbygning",
+        "fk_bbr_tekniskanlæg_adgangtiltekniskanlæg",
+        "fk_geodk_bygning_geodanmarkbygning",
+        "fk_geodk_vejmidte_vejmidte",
+        "fk_mu_jordstykke_foreløbigtplaceretpåjordstykke",
+        "fk_mu_jordstykke_jordstykke",
+        "husnummerretning",
+        "husnummertekst",
+        "navngivenvej_id",
+        "postnummer_id",
+        "supplerendebynavn_id",
+        "vejpunkt_id"
+      ]
+    },
+    {
+      "name": "dar_navngivenvej_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "administreresafkommune",
+        "beskrivelse",
+        "retskrivningskontrol",
+        "udtaltvejnavn",
+        "vejadresseringsnavn",
+        "vejnavn",
+        "vejnavnebeliggenhed_oprindelse_kilde",
+        "vejnavnebeliggenhed_oprindelse_nøjagtighedsklasse",
+        "vejnavnebeliggenhed_oprindelse_registrering",
+        "vejnavnebeliggenhed_oprindelse_tekniskstandard",
+        "vejnavnebeliggenhed_vejnavnelinje",
+        "vejnavnebeliggenhed_vejnavneområde",
+        "vejnavnebeliggenhed_vejtilslutningspunkter"
+      ]
+    },
+    {
+      "name": "dar_navngivenvej_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "administreresafkommune",
+        "beskrivelse",
+        "retskrivningskontrol",
+        "udtaltvejnavn",
+        "vejadresseringsnavn",
+        "vejnavn",
+        "vejnavnebeliggenhed_oprindelse_kilde",
+        "vejnavnebeliggenhed_oprindelse_nøjagtighedsklasse",
+        "vejnavnebeliggenhed_oprindelse_registrering",
+        "vejnavnebeliggenhed_oprindelse_tekniskstandard",
+        "vejnavnebeliggenhed_vejnavnelinje",
+        "vejnavnebeliggenhed_vejnavneområde",
+        "vejnavnebeliggenhed_vejtilslutningspunkter"
+      ]
+    },
+    {
+      "name": "dar_navngivenvejkommunedel_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "kommune",
+        "navngivenvej_id",
+        "vejkode"
+      ]
+    },
+    {
+      "name": "dar_navngivenvejkommunedel_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "kommune",
+        "navngivenvej_id",
+        "vejkode"
+      ]
+    },
+    {
+      "name": "dar_navngivenvejpostnummerrelation_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "navngivenvej_id",
+        "postnummer_id"
+      ]
+    },
+    {
+      "name": "dar_navngivenvejpostnummerrelation_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "navngivenvej_id",
+        "postnummer_id"
+      ]
+    },
+    {
+      "name": "dar_navngivenvejsupplerendebynavnrelation_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "navngivenvej_id",
+        "supplerendebynavn_id"
+      ]
+    },
+    {
+      "name": "dar_navngivenvejsupplerendebynavnrelation_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "navngivenvej_id",
+        "supplerendebynavn_id"
+      ]
+    },
+    {
+      "name": "dar_postnummer_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "navn",
+        "postnr",
+        "postnummerinddeling"
+      ]
+    },
+    {
+      "name": "dar_postnummer_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "navn",
+        "postnr",
+        "postnummerinddeling"
+      ]
+    },
+    {
+      "name": "dar_reserveretvejnavn_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "navneområde",
+        "reservationudløbsdato",
+        "reserveretafkommune",
+        "reserveretnavn",
+        "reserveretudtaltnavn",
+        "reserveretvejadresseringsnavn",
+        "retskrivningskontrol"
+      ]
+    },
+    {
+      "name": "dar_reserveretvejnavn_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "navneområde",
+        "reservationudløbsdato",
+        "reserveretafkommune",
+        "reserveretnavn",
+        "reserveretudtaltnavn",
+        "reserveretvejadresseringsnavn",
+        "retskrivningskontrol"
+      ]
+    },
+    {
+      "name": "dar_supplerendebynavn_aktuel",
+      "attributes": [
+        "id",
+        "status",
+        "navn",
+        "supplerendebynavn1"
+      ]
+    },
+    {
+      "name": "dar_supplerendebynavn_historik",
+      "attributes": [
+        "rowkey",
+        "virkningstart",
+        "virkningslut",
+        "id",
+        "status",
+        "navn",
+        "supplerendebynavn1"
+      ]
+    },
+    {
+      "name": "ejerlav",
+      "attributes": [
+        "kode",
+        "navn",
+        "geo_version",
+        "geo_ændret",
+        "ændret",
+        "visueltcenter",
+        "bbox",
+        "geometri"
+      ]
+    },
+    {
+      "name": "højde",
+      "attributes": [
+        "husnummerid",
+        "højde"
+      ]
+    },
+    {
+      "name": "ikke_brofast_husnummer",
+      "attributes": [
+        "husnummerid"
+      ]
+    },
+    {
+      "name": "jordstykke",
+      "attributes": [
+        "ejerlavkode",
+        "matrikelnr",
+        "kommunekode",
+        "regionskode",
+        "sognekode",
+        "retskredskode",
+        "esrejendomsnr",
+        "udvidet_esrejendomsnr",
+        "sfeejendomsnr",
+        "bfenummer",
+        "geometri",
+        "featureid",
+        "fælleslod",
+        "moderjordstykke",
+        "registreretareal",
+        "arealberegningsmetode",
+        "vejareal",
+        "vejarealberegningsmetode",
+        "vandarealberegningsmetode",
+        "visueltcenter",
+        "bbox"
+      ]
+    },
+    {
+      "name": "jordstykketilknytning",
+      "attributes": [
+        "ejerlavkode",
+        "matrikelnr",
+        "adgangsadresseid"
+      ]
+    },
+    {
+      "name": "kommune",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "kode",
+        "navn",
+        "regionskode",
+        "udenforkommuneinddeling"
+      ]
+    },
+    {
+      "name": "kommunetilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "kommunekode"
+      ]
+    },
+    {
+      "name": "landpostnummer",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "nr",
+        "navn"
+      ]
+    },
+    {
+      "name": "landsdel",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "nuts3",
+        "dagi_id",
+        "navn",
+        "regionskode"
+      ]
+    },
+    {
+      "name": "landsdelstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "nuts3"
+      ]
+    },
+    {
+      "name": "menighedsrådsafstemningsområde",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "nummer",
+        "navn",
+        "afstemningsstednavn",
+        "kommunekode",
+        "sognekode"
+      ]
+    },
+    {
+      "name": "menighedsrådsafstemningsområdetilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "kommunekode",
+        "menighedsrådsafstemningsområdenummer"
+      ]
+    },
+    {
+      "name": "navngivenvej",
+      "attributes": [
+        "id",
+        "darstatus",
+        "oprettet",
+        "ændret",
+        "navn",
+        "adresseringsnavn",
+        "administrerendekommune",
+        "beskrivelse",
+        "retskrivningskontrol",
+        "udtaltvejnavn",
+        "beliggenhed_oprindelse_kilde",
+        "beliggenhed_oprindelse_nøjagtighedsklasse",
+        "beliggenhed_oprindelse_registrering",
+        "beliggenhed_oprindelse_tekniskstandard"
+      ]
+    },
+    {
+      "name": "opstillingskreds",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "nummer",
+        "kode",
+        "navn",
+        "valgkredsnummer",
+        "storkredsnummer",
+        "kredskommunekode"
+      ]
+    },
+    {
+      "name": "opstillingskredstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "opstillingskredskode"
+      ]
+    },
+    {
+      "name": "politikreds",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "kode",
+        "navn"
+      ]
+    },
+    {
+      "name": "politikredstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "politikredskode"
+      ]
+    },
+    {
+      "name": "postnummer",
+      "attributes": [
+        "nr",
+        "navn",
+        "stormodtager"
+      ]
+    },
+    {
+      "name": "postnummertilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "postnummer"
+      ]
+    },
+    {
+      "name": "region",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "kode",
+        "navn",
+        "nuts2"
+      ]
+    },
+    {
+      "name": "regionstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "regionskode"
+      ]
+    },
+    {
+      "name": "retskreds",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "kode",
+        "navn"
+      ]
+    },
+    {
+      "name": "retskredstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "retskredskode"
+      ]
+    },
+    {
+      "name": "sogn",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "kode",
+        "navn"
+      ]
+    },
+    {
+      "name": "sognetilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "sognekode"
+      ]
+    },
+    {
+      "name": "sted",
+      "attributes": [
+        "id",
+        "hovedtype",
+        "undertype",
+        "bebyggelseskode",
+        "indbyggerantal",
+        "visueltcenter",
+        "bbox",
+        "geometri"
+      ]
+    },
+    {
+      "name": "stednavn",
+      "attributes": [
+        "stedid",
+        "navn",
+        "navnestatus",
+        "brugsprioritet"
+      ]
+    },
+    {
+      "name": "stednavntilknytning",
+      "attributes": [
+        "stednavn_id",
+        "adgangsadresse_id"
+      ]
+    },
+    {
+      "name": "stedtilknytning",
+      "attributes": [
+        "stedid",
+        "adgangsadresseid"
+      ]
+    },
+    {
+      "name": "storkreds",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "nummer",
+        "navn",
+        "regionskode",
+        "valglandsdelsbogstav"
+      ]
+    },
+    {
+      "name": "storkredstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "storkredsnummer"
+      ]
+    },
+    {
+      "name": "supplerendebynavn",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "dagi_id",
+        "navn",
+        "kommunekode"
+      ]
+    },
+    {
+      "name": "supplerendebynavntilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "dagi_id"
+      ]
+    },
+    {
+      "name": "valglandsdel",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "bogstav",
+        "navn"
+      ]
+    },
+    {
+      "name": "valglandsdelstilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "valglandsdelsbogstav"
+      ]
+    },
+    {
+      "name": "vask_adresse_historik",
+      "attributes": [
+        "husnummerid",
+        "etage",
+        "dør",
+        "rowkey",
+        "id",
+        "adgangspunkt_status",
+        "husnummer_status",
+        "kommunekode",
+        "vejkode",
+        "vejnavn",
+        "adresseringsvejnavn",
+        "husnr",
+        "supplerendebynavn",
+        "postnr",
+        "postnrnavn",
+        "virkningstart",
+        "virkningslut"
+      ]
+    },
+    {
+      "name": "vask_husnummer_historik",
+      "attributes": [
+        "rowkey",
+        "id",
+        "adgangspunkt_status",
+        "husnummer_status",
+        "kommunekode",
+        "vejkode",
+        "vejnavn",
+        "adresseringsvejnavn",
+        "husnr",
+        "supplerendebynavn",
+        "postnr",
+        "postnrnavn",
+        "virkningstart",
+        "virkningslut"
+      ]
+    },
+    {
+      "name": "vejmidte",
+      "attributes": [
+        "kommunekode",
+        "vejkode",
+        "geometri"
+      ]
+    },
+    {
+      "name": "vejpunkt",
+      "attributes": [
+        "id",
+        "kilde",
+        "tekniskstandard",
+        "nøjagtighedsklasse",
+        "position"
+      ]
+    },
+    {
+      "name": "vejstykke",
+      "attributes": [
+        "id",
+        "kommunekode",
+        "kode",
+        "oprettet",
+        "ændret",
+        "navn",
+        "adresseringsnavn",
+        "navngivenvej_id"
+      ]
+    },
+    {
+      "name": "vejstykkepostnummerrelation",
+      "attributes": [
+        "kommunekode",
+        "vejkode",
+        "postnr"
+      ]
+    },
+    {
+      "name": "zone",
+      "attributes": [
+        "ændret",
+        "geo_ændret",
+        "geo_version",
+        "visueltcenter",
+        "bbox",
+        "geometri",
+        "zone"
+      ]
+    },
+    {
+      "name": "zonetilknytning",
+      "attributes": [
+        "adgangsadresseid",
+        "zone"
+      ]
+    }
+  ],
+  "bindings": {
+    "adgangsadresse": {
+      "table": "adgangsadresse"
+    },
+    "adresse": {
+      "table": "adresse"
+    },
+    "afstemningsområde": {
+      "table": "afstemningsomraade"
+    },
+    "afstemningsområdetilknytning": {
+      "table": "afstemningsomraadetilknytning"
+    },
+    "brofasthed": {
+      "table": "brofasthed"
+    },
+    "bygning": {
+      "table": "bygning"
+    },
+    "bygningtilknytning": {
+      "table": "bygningtilknytning"
+    },
+    "dagi_postnummer": {
+      "table": "dagi_postnummer"
+    },
+    "dar_adresse_aktuel": {
+      "table": "dar_adresse_aktuel"
+    },
+    "dar_adresse_historik": {
+      "table": "dar_adresse_historik"
+    },
+    "dar_adressepunkt_aktuel": {
+      "table": "dar_adressepunkt_aktuel"
+    },
+    "dar_adressepunkt_historik": {
+      "table": "dar_adressepunkt_historik"
+    },
+    "dar_darafstemningsområde_aktuel": {
+      "table": "dar_darafstemningsomraade_aktuel"
+    },
+    "dar_darafstemningsområde_historik": {
+      "table": "dar_darafstemningsomraade_historik"
+    },
+    "dar_darkommuneinddeling_aktuel": {
+      "table": "dar_darkommuneinddeling_aktuel"
+    },
+    "dar_darkommuneinddeling_historik": {
+      "table": "dar_darkommuneinddeling_historik"
+    },
+    "dar_darmenighedsrådsafstemningsområde_aktuel": {
+      "table": "dar_darmenighedsraadsafstemningsomraade_aktuel"
+    },
+    "dar_darmenighedsrådsafstemningsområde_historik": {
+      "table": "dar_darmenighedsraasafstemningsomraade_historik"
+    },
+    "dar_darsogneinddeling_aktuel": {
+      "table": "dar_darsogneinddeling_aktuel"
+    },
+    "dar_darsogneinddeling_historik": {
+      "table": "dar_darsogneinddeling_historik"
+    },
+    "dar_husnummer_aktuel": {
+      "table": "dar_husnummer_aktuel"
+    },
+    "dar_husnummer_historik": {
+      "table": "dar_husnummer_historik"
+    },
+    "dar_navngivenvej_aktuel": {
+      "table": "dar_navngivenvej_aktuel"
+    },
+    "dar_navngivenvej_historik": {
+      "table": "dar_navngivenvej_historik"
+    },
+    "dar_navngivenvejkommunedel_aktuel": {
+      "table": "dar_navngivenvejkommunedel_aktuel"
+    },
+    "dar_navngivenvejkommunedel_historik": {
+      "table": "dar_navngivenvejkommunedel_historik"
+    },
+    "dar_navngivenvejpostnummerrelation_aktuel": {
+      "table": "dar_navngivenvejpostnummerrelation_aktuel"
+    },
+    "dar_navngivenvejpostnummerrelation_historik": {
+      "table": "dar_navngivenvejpostnummerrelation_historik"
+    },
+    "dar_navngivenvejsupplerendebynavnrelation_aktuel": {
+      "table": "dar_navngivenvejsupplerendebynavnrelation_aktuel"
+    },
+    "dar_navngivenvejsupplerendebynavnrelation_historik": {
+      "table": "dar_navngivenvejsupplerendebynavnrelation_historik"
+    },
+    "dar_postnummer_aktuel": {
+      "table": "dar_postnummer_aktuel"
+    },
+    "dar_postnummer_historik": {
+      "table": "dar_postnummer_historik"
+    },
+    "dar_reserveretvejnavn_aktuel": {
+      "table": "dar_reserveretvejnavn_aktuel"
+    },
+    "dar_reserveretvejnavn_historik": {
+      "table": "dar_reserveretvejnavn_historik"
+    },
+    "dar_supplerendebynavn_aktuel": {
+      "table": "dar_supplerendebynavn_aktuel"
+    },
+    "dar_supplerendebynavn_historik": {
+      "table": "dar_supplerendebynavn_historik"
+    },
+    "ejerlav": {
+      "table": "ejerlav"
+    },
+    "højde": {
+      "table": "hoejde"
+    },
+    "ikke_brofast_husnummer": {
+      "table": "ikke_brofast_husnummer"
+    },
+    "jordstykke": {
+      "table": "jordstykke"
+    },
+    "jordstykketilknytning": {
+      "table": "jordstykketilknytning"
+    },
+    "kommune": {
+      "table": "kommune"
+    },
+    "kommunetilknytning": {
+      "table": "kommunetilknytning"
+    },
+    "landpostnummer": {
+      "table": "landpostnummer"
+    },
+    "landsdel": {
+      "table": "landsdel"
+    },
+    "landsdelstilknytning": {
+      "table": "landsdelstilknytning"
+    },
+    "menighedsrådsafstemningsområde": {
+      "table": "menighedsraadsafstemningsomraade"
+    },
+    "menighedsrådsafstemningsområdetilknytning": {
+      "table": "menighedsraadsafstemningsomraadetilknytning"
+    },
+    "navngivenvej": {
+      "table": "navngivenvej"
+    },
+    "opstillingskreds": {
+      "table": "opstillingskreds"
+    },
+    "opstillingskredstilknytning": {
+      "table": "opstillingskredstilknytning"
+    },
+    "politikreds": {
+      "table": "politikreds"
+    },
+    "politikredstilknytning": {
+      "table": "politikredstilknytning"
+    },
+    "postnummer": {
+      "table": "postnummer"
+    },
+    "postnummertilknytning": {
+      "table": "postnummertilknytning"
+    },
+    "region": {
+      "table": "region"
+    },
+    "regionstilknytning": {
+      "table": "regionstilknytning"
+    },
+    "retskreds": {
+      "table": "retskreds"
+    },
+    "retskredstilknytning": {
+      "table": "retskredstilknytning"
+    },
+    "sogn": {
+      "table": "sogn"
+    },
+    "sognetilknytning": {
+      "table": "sognetilknytning"
+    },
+    "sted": {
+      "table": "sted"
+    },
+    "stednavn": {
+      "table": "stednavn"
+    },
+    "stednavntilknytning": {
+      "table": "stednavntilknytning"
+    },
+    "stedtilknytning": {
+      "table": "stedtilknytning"
+    },
+    "storkreds": {
+      "table": "storkreds"
+    },
+    "storkredstilknytning": {
+      "table": "storkredstilknytning"
+    },
+    "supplerendebynavn": {
+      "table": "supplerendebynavn"
+    },
+    "supplerendebynavntilknytning": {
+      "table": "supplerendebynavntilknytning"
+    },
+    "valglandsdel": {
+      "table": "valglandsdel"
+    },
+    "valglandsdelstilknytning": {
+      "table": "valglandsdelstilknytning"
+    },
+    "vask_adresse_historik": {
+      "table": "vask_adresse_historik"
+    },
+    "vask_husnummer_historik": {
+      "table": "vask_husnummer_historik"
+    },
+    "vejmidte": {
+      "table": "vejmidte"
+    },
+    "vejpunkt": {
+      "table": "vejpunkt"
+    },
+    "vejstykke": {
+      "table": "vejstykke"
+    },
+    "vejstykkepostnummerrelation": {
+      "table": "vejstykkepostnummerrelation"
+    },
+    "zone": {
+      "table": "zone"
+    },
+    "zonetilknytning": {
+      "table": "zonetilknytning"
+    }
+  }
+}
+

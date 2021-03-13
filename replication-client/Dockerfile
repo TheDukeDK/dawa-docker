@@ -12,7 +12,7 @@ WORKDIR /app
 
 RUN mkdir config
 
-COPY config/* config/
+COPY config.json config/
 
 RUN chown -R dawa-replicator /app/config \
     && chmod -R 700 /app/config
@@ -24,4 +24,3 @@ RUN chown dawa-replicator wrapper.sh \
 USER dawa-replicator
 
 ENTRYPOINT ["bash", "./wrapper.sh"]
-
