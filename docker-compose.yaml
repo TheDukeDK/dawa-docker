@@ -27,9 +27,9 @@ services:
       - POSTGRES_USER=$POSTGRES_DB_USER
       - POSTGRES_PASSWORD=$POSTGRES_DB_PASSWORD
       - REPLICATOR_SYNC_PERIOD=$REPLICATOR_SYNC_PERIOD
+    command:
+      - sh -c 'wait-for postgres:5432 -- echo "The replication can start"'
     depends_on:
-      - postgres
-    links:
       - postgres
 volumes:
   dawadk_db_volume: {}
